@@ -19,7 +19,7 @@ DEFINE_FILTERED_ARRAY(BigTask, TaskPool, uint16_t, NUM_STATES, 500)
 
 int main(void) {
     TaskPool pool;
-    TaskPool_init(&pool);
+    TaskPool_init(&pool); // Can also be declared on the stack as "TaskPool pool = {0};"
 
     BigTask t1 = {.id = 1};
     BigTask t2 = {.id = 2};
