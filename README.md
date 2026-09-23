@@ -17,3 +17,62 @@ data[]:     │ A1 │ A2 │ B1 │ B2 │ B3 │  C1   │  Unused Capacity...
             └─────────┴──────────────┴───────┴──────────────────────┘
               State 0     State 1     State 2   State 3 (empty)
              [0..1]      [2..4]       [5..5]     [6..6]
+```
+
+## Example on how to use it
+
+```C
+#include <stdio.h>
+#include <stdint.h>
+#include "arrayFilterUtility/arrayFilterUtility.h"
+
+typedef enum {
+    SLOT_HELMET,
+    SLOT_CHEST,
+    SLOT_GLOVES,
+    SLOT_BELT,
+    SLOT_BOOTS,
+    SLOT_COUNT
+} EquipmentSlot;
+
+typedef struct {
+    uint32_t id;
+    uint16_t defense;
+    uint16_t durability;
+    char name[32];
+} ArmorItem;
+
+DEFINE_FILTERED_ARRAY(ArmorItem, ArmorInventory, uint16_t, SLOT_COUNT, 128)
+
+int main(void) {
+    ArmorInventory inv;
+    ArmorInventory_init(&inv);
+
+    ArmorInventory_push(&inv, SLOT_HELMET, (ArmorItem){1, 15, 100, "Iron Helmet"});
+    ArmorInventory_push(&inv, SLOT_CHEST,  (ArmorItem){2, 45, 150, "Steel Cuirass"});
+    ArmorInventory_push(&inv, SLOT_CHEST,  (ArmorItem){3, 60, 200, "Chainmail"});
+    ArmorInventory_push(&inv, SLOT_GLOVES, (ArmorItem){4, 10,  80, "Leather Gloves"});
+    ArmorInventory_push(&inv, SLOT_BELT,   (ArmorItem){5,  5,  50, "Cloth Belt"});
+    ArmorInventory_push(&inv, SLOT_BOOTS,  (ArmorItem){6, 12,  90, "Boots of Speed"});
+
+    uint16_t chest_count = 0;
+    ArmorItem *chests = ArmorInventory_get_range(&inv, SLOT_CHEST, &chest_count);
+
+    printf("=== CHESTS TAB (%u) ===\n", chest_count);
+    for (uint16_t i = 0; i < chest_count; i++) {
+        printf("- %s | Defense: %u | Durability: %u%%\n", 
+               chests[i].name, chests[i].defense, chests[i].durability);
+    }
+
+    printf("\n=== INVENTORY SUMMARY ===\n");
+    const char *slot_names[] = {"Helmets", "Chests", "Gloves", "Belts", "Boots"};
+    
+    for (size_t s = 0; s < SLOT_COUNT; s++) {
+        printf("- %s: %u item(s)\n", slot_names[s], ArmorInventory_count(&inv, s));
+    }
+
+    printf("Total items in inventory: %u / 128\n", ArmorInventory_total_count(&inv));
+
+    return 0;
+}
+```
