@@ -77,3 +77,18 @@ int main(void) {
     return 0;
 }
 ```
+
+output result:
+```
+=== CHESTS TAB (2) ===
+- Chainmail | Defense: 60 | Durability: 200%
+- Steel Cuirass | Defense: 45 | Durability: 150%
+
+=== INVENTORY SUMMARY ===
+- Helmets: 1 item(s)
+- Chests: 2 item(s)
+- Gloves: 1 item(s)
+- Belts: 1 item(s)
+- Boots: 1 item(s)
+Total items in inventory: 6 / 128
+```
