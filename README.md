@@ -47,7 +47,7 @@ DEFINE_FILTERED_ARRAY(ArmorItem, ArmorInventory, uint16_t, SLOT_COUNT, MAX_ARMOR
 
 int main(void) {
     ArmorInventory inv;
-    ArmorInventory_init(&inv);
+    ArmorInventory_init(&inv); // or just ArmorInventory inv = {0}; on the stack
 
     ArmorInventory_push(&inv, SLOT_HELMET, (ArmorItem){1, 15, 100, "Iron Helmet"});
     ArmorInventory_push(&inv, SLOT_CHEST,  (ArmorItem){2, 45, 150, "Steel Cuirass"});
