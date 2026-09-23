@@ -42,7 +42,8 @@ typedef struct {
     char name[32];
 } ArmorItem;
 
-DEFINE_FILTERED_ARRAY(ArmorItem, ArmorInventory, uint16_t, SLOT_COUNT, 128)
+#define MAX_ARMOR_CAPACITY 128
+DEFINE_FILTERED_ARRAY(ArmorItem, ArmorInventory, uint16_t, SLOT_COUNT, MAX_ARMOR_CAPACITY)
 
 int main(void) {
     ArmorInventory inv;
