@@ -1,6 +1,6 @@
 ## How It Works
 
-`Filtered Array` packs all entities into a single contiguous array (`data`) and uses an array of indices (`cursors`) to keep track of state boundaries without pre-allocating fixed sub-buffers.
+`Filtered Array` packs all entities into a single contiguous array (`data`) and uses an array of indices (`cursors`) to keep track of state boundaries without allocating anything more memory.
 
 ### Memory Layout
 
